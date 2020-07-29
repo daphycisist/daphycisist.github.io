@@ -4,19 +4,19 @@ import { User } from "../modules/User.js";
 //Static image paths to populate actor details 
 const imageUrl = [
   './img/Luke-Skywalker.jpg',
-  './img/C-3PO.jpg', 
-  './img/R2-D2.jpg', 
-  './img/Darth-Vader.jpg', 
-  './img/Leia-Organa.png', 
-  './img/Owen-Lars.jpeg', 
-  './img/Beru-Lars.jpeg', 
-  './img/R5-D4.jpeg', 
-  './img/Biggs-Darklighter.jpeg', 
+  './img/C-3PO.jpg',
+  './img/R2-D2.jpg',
+  './img/Darth-Vader.jpg',
+  './img/Leia-Organa.png',
+  './img/Owen-Lars.jpeg',
+  './img/Beru-Lars.jpeg',
+  './img/R5-D4.jpeg',
+  './img/Biggs-Darklighter.jpeg',
   './img/Obi-Wan-Kenobi.jpeg',
 ];
 
 // API to fetch data from
-const url = "https://swapi.dev/api/people/"; 
+const url = "https://swapi.dev/api/people/";
 
 // Functions to create actor models 
 const createActors = (actor) => document.createElement(actor);
@@ -26,13 +26,13 @@ const appendActor = (parent, el) => parent.appendChild(el);
 fetch(url)
   .then((response) => response.json())
   .then((data) => {
-    
+
     //Get all actors data
-    const actors = data.results; 
-    
+    const actors = data.results;
+
     // Loop through the API and append data to index page
     return actors.map((actor, index) => {
-      const div = document.getElementById("actors"); 
+      const div = document.getElementById("actors");
       const actorsInfos = new User(actor);
       const actorInfo = actorsInfos.actorDetails;
       const image = createActors("img");
@@ -44,15 +44,15 @@ fetch(url)
       image.src = imageUrl[index];
 
       //Populate our HTML with each person's name
-      name.innerHTML = `${actor.name}`; 
+      name.innerHTML = `${actor.name}`;
 
-      
+
       appendActor(div, person);
       appendActor(person, image);
       appendActor(person, name);
-      
+
       // Click function which populates the selected data into the modal
-      name.onclick = () => {
+      person.onclick = () => {
         const actor_content = document.querySelector('.actor-content');
         const article = document.querySelector('.display-actor-info');
         actor_content.style.display = 'block';
@@ -66,12 +66,12 @@ fetch(url)
           <p>Height: ${actorInfo.height}</p>
         </div>
           <button class="close">&times;</button>
-        `  
-
+        `
+        //Add close button for modal field
         const closeBtn = document.querySelector('.close');
         closeBtn.onclick = () => {
           actor_content.style.display = 'none'
-        } 
+        }
       }
     });
   })
